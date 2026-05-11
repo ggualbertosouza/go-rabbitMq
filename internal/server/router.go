@@ -1,8 +1,7 @@
 package server
 
 import (
-	"net/http"
-
+	"github.com/ggualbertosouza/go-rabbitMq/internal/handlers"
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,13 +11,8 @@ func NewRouter() *gin.Engine {
 	r.Use(gin.Recovery())
 	r.Use(gin.Logger())
 
-	r.GET("/health", HealthCheck)
+	r.GET("/health", handlers.HealthCheck)
+	r.POST("/publish", handlers.Publish)
 
 	return r
-}
-
-func HealthCheck(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, gin.H{
-		"status": "ok",
-	})
 }

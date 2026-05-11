@@ -6,16 +6,6 @@ import (
 	"github.com/joho/godotenv"
 )
 
-type HttpServer struct {
-	Port string
-}
-
-func HttpConfig() *HttpServer {
-	return &HttpServer{
-		Port: get("SERVER_PORT", "8080"),
-	}
-}
-
 func LoadEnv(files ...string) error {
 	if len(files) == 0 {
 		return godotenv.Load()
