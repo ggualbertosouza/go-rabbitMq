@@ -1,7 +1,19 @@
 package main
 
-import "fmt"
+import (
+	"github.com/ggualbertosouza/go-rabbitMq/internal/config"
+	"github.com/ggualbertosouza/go-rabbitMq/internal/server"
+)
 
 func main() {
-	fmt.Print("Teste de início")
+	config.LoadEnv()
+
+	hc := config.HttpConfig()
+
+	s := server.Server{
+		Port: hc.Port,
+	}
+	r := server.NewRouter()
+
+	s.Init(r)
 }
