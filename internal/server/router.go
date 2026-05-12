@@ -15,5 +15,10 @@ func NewRouter(deps context.Dependencies) *gin.Engine {
 	r.GET("/health", handlers.HealthCheck)
 	r.POST("/publish", handlers.Publish(deps))
 
+	r.Static("/docs", "./docs")
+	r.GET("/", func(ctx *gin.Context) {
+		ctx.Redirect(302, "/docs")
+	})
+
 	return r
 }
