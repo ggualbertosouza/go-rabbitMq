@@ -81,10 +81,6 @@ When the application is running, documentation can be accessed at:
 http://localhost:8080/docs
 ```
 
----
-
-# Updating Documentation
-
 Whenever `asyncapi.yml` is updated, regenerate the documentation:
 
 ```bash
