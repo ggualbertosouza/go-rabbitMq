@@ -16,7 +16,7 @@ The project demonstrates:
 ## Clone repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/ggualbertosouza/go-rabbitMq
 ```
 
 ---
@@ -80,10 +80,6 @@ When the application is running, documentation can be accessed at:
 ```text
 http://localhost:8080/docs
 ```
-
----
-
-# Updating Documentation
 
 Whenever `asyncapi.yml` is updated, regenerate the documentation:
 
