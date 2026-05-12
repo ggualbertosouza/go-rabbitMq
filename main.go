@@ -5,6 +5,7 @@ import (
 	"github.com/ggualbertosouza/go-rabbitMq/internal/config/logger"
 	"github.com/ggualbertosouza/go-rabbitMq/internal/rabbitmq"
 	"github.com/ggualbertosouza/go-rabbitMq/internal/server"
+	"github.com/ggualbertosouza/go-rabbitMq/internal/server/context"
 )
 
 func main() {
@@ -12,30 +13,44 @@ func main() {
 
 	config.LoadEnv()
 
-	initRabbit(log)
-	initServer(log)
+	rabbit, err := initRabbit(log)
+	if err != nil {
+		panic(err)
+	}
+
+	deps := context.Dependencies{
+		Logger: log,
+		Rabbit: rabbit,
+	}
+
+	initServer(log, deps)
 }
 
-func initServer(log logger.Logger) {
+func initServer(
+	log logger.Logger,
+	deps context.Dependencies,
+) {
 	hc := config.HttpConfig()
 
 	s := server.Server{
 		Port:   hc.Port,
 		Logger: log,
 	}
-	r := server.NewRouter()
+	r := server.NewRouter(deps)
 	s.Init(r)
 }
 
-func initRabbit(log logger.Logger) {
+func initRabbit(log logger.Logger) (*rabbitmq.RabbitMq, error) {
 	rc := config.RabbitMQConfig()
 	rabbit, err := rabbitmq.New(log, rc.URL)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	err = rabbit.Init(rc.Exchange, rc.Queue, rc.RoutingKey)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
+
+	return rabbit, nil
 }
