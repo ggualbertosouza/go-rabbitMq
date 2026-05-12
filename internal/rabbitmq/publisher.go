@@ -6,12 +6,12 @@ import (
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
-func (r *RabbitMq) Publish(exchange, routingKey string, body []byte) error {
+func (r *RabbitMq) Publish(exchange ExchangeType, routingKey string, body []byte) error {
 	r.Logger.Info("publishing message")
 
 	return r.Channel.PublishWithContext(
 		context.Background(),
-		exchange,
+		string(exchange),
 		routingKey,
 		false,
 		false,

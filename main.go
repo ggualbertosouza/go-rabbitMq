@@ -47,10 +47,5 @@ func initRabbit(log logger.Logger) (*rabbitmq.RabbitMq, error) {
 		return nil, err
 	}
 
-	err = rabbit.Init(rc.Exchange, rc.Queue, rc.RoutingKey)
-	if err != nil {
-		return nil, err
-	}
-
 	return rabbit, nil
 }

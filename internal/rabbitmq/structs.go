@@ -1,11 +1,14 @@
 package rabbitmq
 
+type ExchangeType string
+
 const (
-	DirectExchange string = "direct"
-	TopicExchange  string = "topic"
-	FanOutExchange string = "fanout"
+	DirectExchange  ExchangeType = "direct"
+	TopicExchange   ExchangeType = "topic"
+	FanOutExchange  ExchangeType = "fanout"
+	HeadersExchange ExchangeType = "headers"
 )
 
 const (
-	
+	EventMessage string = "event.message"
 )
