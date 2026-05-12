@@ -8,7 +8,3 @@ const (
 	FanOutExchange  ExchangeType = "fanout"
 	HeadersExchange ExchangeType = "headers"
 )
-
-const (
-	EventMessage string = "event.message"
-)

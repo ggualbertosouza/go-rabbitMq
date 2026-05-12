@@ -3,7 +3,6 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/ggualbertosouza/go-rabbitMq/internal/rabbitmq"
 	"github.com/ggualbertosouza/go-rabbitMq/internal/server/context"
 	"github.com/gin-gonic/gin"
 )
@@ -23,11 +22,7 @@ func Publish(deps context.Dependencies) gin.HandlerFunc {
 			return
 		}
 
-		mess := []byte(req.Message)
-		if err := deps.Rabbit.Publish(rabbitmq.TopicExchange, rabbitmq.EventMessage, mess); err != nil {
-			context.BadRequest(ctx, err)
-			return
-		}
+		l.Info(req.Message)
 
 		l.Info("message sent successfully")
 		ctx.JSON(http.StatusOK, gin.H{})
