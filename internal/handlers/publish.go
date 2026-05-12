@@ -15,30 +15,23 @@ func Publish(deps context.Dependencies) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		l := deps.Logger
 
-		l.Info("Starting publishing message")
+		l.Info("starting publishing message")
 
-		var req publishRequest
-		if err := ctx.ShouldBindJSON(&req); err != nil {
-			ctx.JSON(http.StatusBadRequest, gin.H{
-				"error": err.Error(),
-			})
-
+		req, ok := context.Bind[publishRequest](ctx)
+		if !ok {
 			return
 		}
 
-		err := deps.Rabbit.Publish(
+		if err := deps.Rabbit.Publish(
 			"events",
 			"demo.message",
 			[]byte(req.Message),
-		)
-		if err != nil {
-			ctx.JSON(http.StatusBadRequest, gin.H{
-				"error": err.Error(),
-			})
-
+		); err != nil {
+			context.BadRequest(ctx, err)
 			return
 		}
 
+		l.Info("message sent successfully")
 		ctx.JSON(http.StatusOK, gin.H{})
 	}
 }
