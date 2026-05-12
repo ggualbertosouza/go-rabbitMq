@@ -16,7 +16,7 @@ The project demonstrates:
 ## Clone repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/ggualbertosouza/go-rabbitMq
 ```
 
 ---
