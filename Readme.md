@@ -11,7 +11,34 @@ The project demonstrates:
 
 ---
 
-# Running the Project
+# Getting Started
+
+## Clone repository
+
+```bash
+git clone <repository-url>
+```
+
+---
+
+## Create environment file
+
+```bash
+cp .env.example .env
+```
+
+---
+
+## Start required services
+
+```bash
+docker compose up -d
+```
+
+This starts required infrastructure services such as:
+- RabbitMQ
+
+---
 
 ## Run application
 
@@ -37,19 +64,27 @@ This project uses AsyncAPI to document:
 - Message payloads
 
 The AsyncAPI specification file is located at:
+
 ```text
 asyncapi.yml
 ```
 
 Generated static documentation is available in:
+
 ```text
 /docs
 ```
 
 When the application is running, documentation can be accessed at:
+
 ```text
 http://localhost:8080/docs
 ```
+
+---
+
+# Updating Documentation
+
 Whenever `asyncapi.yml` is updated, regenerate the documentation:
 
 ```bash
