@@ -1,0 +1,72 @@
+asyncapi: 3.0.0
+
+info:
+  title: RabbitMQ Topology Example
+  version: 1.0.0
+  description: |
+    Exemplo de topologia RabbitMQ usando:
+    - **Direct** Exchange
+    - **Topic** Exchange
+    - **Fanout** Exchange
+
+servers:
+  rabbitmq:
+    host: localhost:5672
+    protocol: amqp
+
+channels:
+
+  # DIRECT EXCHANGE
+  userCreated:
+    address: user.created
+    bindings:
+      amqp:
+        is: routingKey
+        exchange:
+          name: direct.exchange
+          type: direct
+          durable: true
+          autoDelete: false
+          vhost: /
+    messages:
+      userCreatedMessage:
+        $ref: '#/components/messages/UserCreated'
+
+operations:
+
+  # DIRECT PRODUCER
+  publishUserCreated:
+    action: send
+    channel:
+      $ref: '#/channels/userCreated'
+
+  # DIRECT CONSUMERS
+  consumeUserQueue1:
+    action: receive
+    channel:
+      $ref: '#/channels/userCreated'
+    bindings:
+      amqp:
+        ack: true
+
+  consumeUserQueue2:
+    action: receive
+    channel:
+      $ref: '#/channels/userCreated'
+    bindings:
+      amqp:
+        ack: true
+
+components:
+
+  messages:
+    UserCreated:
+      name: UserCreated
+      title: User Created Event
+      payload:
+        type: object
+        properties:
+          userId:
+            type: string
+          email:
+            type: string
