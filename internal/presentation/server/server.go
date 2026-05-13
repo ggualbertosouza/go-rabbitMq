@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/ggualbertosouza/go-rabbitMq/internal/config/logger"
+	"github.com/ggualbertosouza/go-rabbitMq/internal/infra/config/logger"
 )
 
 type Server struct {

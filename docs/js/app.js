@@ -34,7 +34,7 @@
           "payload": {
             "type": "object",
             "properties": {
-              "userId": {
+              "password": {
                 "type": "string",
                 "x-parser-schema-id": "<anonymous-schema-2>"
               },

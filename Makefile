@@ -1,18 +1,16 @@
-MAIN_PATH = ./main.go
 DOCS_PATH = ./docs
 ASYNCAPI_FILE = asyncapi.yml
 
-.PHONY: \
-	run \
-	docs \
-	clean-docs \
-	infra-up \
-	infra-down \
-	infra-logs \
-	help
+SERVER_PATH = ./cmd/server/main.go
+CONSUMERS_PATH = ./cmd/consumers/main.go
 
-run:
-	@go run $(MAIN_PATH)
+.PHONY: run-server run-consumers docs clean-docs infra-up infra-down infra-logs help
+
+run-server:
+	@go run $(SERVER_PATH)
+
+run-consumers:
+	@go run $(CONSUMERS_PATH)
 
 docs: clean-docs
 	@echo "Removing old docs..."

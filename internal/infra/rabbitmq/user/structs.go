@@ -1,4 +1,4 @@
-package rabbitmq
+package userRbMq
 
 type AppExchanges string
 

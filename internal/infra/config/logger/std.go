@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 )
 
 type StdLogger struct {
@@ -12,11 +13,11 @@ type StdLogger struct {
 	error *log.Logger
 }
 
-func NewLogger() *StdLogger {
+func NewLogger(application string) *StdLogger {
 	return &StdLogger{
-		info:  log.New(os.Stdout, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile),
-		warn:  log.New(os.Stdout, "WARN: ", log.Ldate|log.Ltime|log.Lshortfile),
-		error: log.New(os.Stdout, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile),
+		info:  log.New(os.Stdout, formatPrefix(application, "INFO"), log.Ldate|log.Ltime|log.Lshortfile),
+		warn:  log.New(os.Stdout, formatPrefix(application, "WARN"), log.Ldate|log.Ltime|log.Lshortfile),
+		error: log.New(os.Stdout, formatPrefix(application, "ERROR"), log.Ldate|log.Ltime|log.Lshortfile),
 	}
 }
 
@@ -42,4 +43,8 @@ func format(msg string, fields ...Field) string {
 		out += fmt.Sprintf(" %s=%v", f.Key, f.Value)
 	}
 	return out
+}
+
+func formatPrefix(application, level string) string {
+	return strings.ToUpper(application) + " " + level + ": "
 }

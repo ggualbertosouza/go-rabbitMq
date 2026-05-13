@@ -7,7 +7,7 @@ type RabbitMQ struct {
 	RoutingKey string
 }
 
-func RabbitMQConfig() *RabbitMQ {
+func Rabbitmq() *RabbitMQ {
 	return &RabbitMQ{
 		URL:        get("RABBITMQ_URL", "amqp://admin:admin@localhost:5672/"),
 		Exchange:   get("RABBITMQ_EXCHANGE", "events"),
