@@ -30,7 +30,49 @@
             "read": ".*"
         }
     ],
-    "exchanges": [],
-    "queues": [],
-    "bindings": []
+    "exchanges": [
+        {
+            "name": "user.exchange",
+            "vhost": "/",
+            "type": "direct",
+            "durable": true,
+            "auto_delete": false,
+            "internal": false,
+            "arguments": {}
+        }
+    ],
+    "queues": [
+        {
+            "name": "user.queue.1",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {}
+        },
+        {
+            "name": "user.queue.2",
+            "vhost": "/",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {}
+        }
+    ],
+    "bindings": [
+        {
+            "source": "user.exchange",
+            "vhost": "/",
+            "destination": "user.queue.1",
+            "destination_type": "queue",
+            "routing_key": "user.created",
+            "arguments": {}
+        },
+        {
+            "source": "user.exchange",
+            "vhost": "/",
+            "destination": "user.queue.2",
+            "destination_type": "queue",
+            "routing_key": "user.created",
+            "arguments": {}
+        }
+    ]
 }
