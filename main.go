@@ -23,6 +23,7 @@ func main() {
 		Rabbit: rabbit,
 	}
 
+	initRabbitConsumer(log, rabbit)
 	initServer(log, deps)
 }
 
@@ -48,4 +49,14 @@ func initRabbit(log logger.Logger) (*rabbitmq.RabbitMq, error) {
 	}
 
 	return rabbit, nil
+}
+
+func initRabbitConsumer(
+	log logger.Logger,
+	rabbit *rabbitmq.RabbitMq,
+) {
+	err := rabbit.Consume(string(rabbitmq.UserQueue1), "userConsumerQueue1")
+	if err != nil {
+		log.Error(err.Error())
+	}
 }

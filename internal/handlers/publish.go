@@ -23,8 +23,8 @@ func Publish(deps context.Dependencies) gin.HandlerFunc {
 			return
 		}
 
-		mess := []byte(req.Message)
-		if err := deps.Rabbit.Publish(rabbitmq.TopicExchange, rabbitmq.EventMessage, mess); err != nil {
+		err := deps.Rabbit.Publish(rabbitmq.UsersExchanges, rabbitmq.UserCreatedRK, []byte(req.Message))
+		if err != nil {
 			context.BadRequest(ctx, err)
 			return
 		}

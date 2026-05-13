@@ -1,14 +1,20 @@
 package rabbitmq
 
-type ExchangeType string
+type AppExchanges string
 
 const (
-	DirectExchange  ExchangeType = "direct"
-	TopicExchange   ExchangeType = "topic"
-	FanOutExchange  ExchangeType = "fanout"
-	HeadersExchange ExchangeType = "headers"
+	UsersExchanges AppExchanges = "user.exchange"
 )
 
+type AppRoutingKeys string
+
 const (
-	EventMessage string = "event.message"
+	UserCreatedRK AppRoutingKeys = "user.created"
+)
+
+type AppQueues string
+
+const (
+	UserQueue1 AppQueues = "user.queue.1"
+	UserQueue2 AppQueues = "user.queue.2"
 )
