@@ -1,7 +1,7 @@
 package rabbitmq
 
 import (
-	"github.com/ggualbertosouza/go-rabbitMq/internal/config/logger"
+	"github.com/ggualbertosouza/go-rabbitMq/internal/infra/config/logger"
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 

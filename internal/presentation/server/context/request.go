@@ -1,4 +1,4 @@
-package context
+package serverContext
 
 import (
 	"net/http"
