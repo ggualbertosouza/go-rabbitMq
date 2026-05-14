@@ -88,8 +88,13 @@ curl -X POST http://localhost:8080/user \
 
 ## API Endpoints
 - `GET /health`: Verificação de saúde.
+<<<<<<< HEAD
 - `POST /rabbitmq/direct/user`: Cria um usuário.
 - `PUT /rabbitmq/direct/user`: Atualiza um usuário.
+=======
+- `POST /user`: Cria um usuário.
+- `PUT /user`: Atualiza um usuário.
+>>>>>>> b4f2d76d7a14790dad584d900f33c2b43d36510f
 - `GET /docs`: Documentação AsyncAPI (redireciona para `/docs`).
 
 ## Documentação AsyncAPI
