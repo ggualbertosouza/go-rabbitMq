@@ -71,7 +71,7 @@
             "vhost": "/",
             "destination": "user.queue.2",
             "destination_type": "queue",
-            "routing_key": "user.created",
+            "routing_key": "user.updated",
             "arguments": {}
         }
     ]

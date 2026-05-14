@@ -8,20 +8,20 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type publishRequest struct {
+type CreateUserRequest struct {
 	Email    string `json:"email" binding:"required"`
 	Password string `json:"password" binding:"required"`
 }
 
-func Publish(deps serverContext.Dependencies) gin.HandlerFunc {
+func CreateUser(deps serverContext.Dependencies) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		req, ok := serverContext.Bind[publishRequest](ctx)
+		req, ok := serverContext.Bind[CreateUserRequest](ctx)
 		if !ok {
 			return
 		}
 
 		userUseCase := userUseCase.New(deps.Logger, deps.Rabbit)
-		if err := userUseCase.CreateUser(req.Email, req.Password); err != nil {
+		if err := userUseCase.Create(req.Email, req.Password); err != nil {
 			serverContext.BadRequest(ctx, err)
 			return
 		}
