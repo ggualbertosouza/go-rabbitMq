@@ -13,7 +13,8 @@ func NewRouter(deps serverContext.Dependencies) *gin.Engine {
 	r.Use(gin.Logger())
 
 	r.GET("/health", handlers.HealthCheck)
-	r.POST("/publish", handlers.Publish(deps))
+	r.POST("/user", handlers.CreateUser(deps))
+	r.PUT("/user", handlers.UpdateUser(deps))
 
 	r.Static("/docs", "./docs")
 	r.GET("/", func(ctx *gin.Context) {

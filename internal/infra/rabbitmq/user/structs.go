@@ -10,6 +10,7 @@ type AppRoutingKeys string
 
 const (
 	UserCreatedRK AppRoutingKeys = "user.created"
+	UserUpdatedRk AppRoutingKeys = "user.updated"
 )
 
 type AppQueues string

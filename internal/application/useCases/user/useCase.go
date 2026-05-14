@@ -3,7 +3,6 @@ package userUseCase
 import (
 	"encoding/json"
 
-	"github.com/ggualbertosouza/go-rabbitMq/internal/application/inputs"
 	"github.com/ggualbertosouza/go-rabbitMq/internal/infra/config/logger"
 	"github.com/ggualbertosouza/go-rabbitMq/internal/infra/rabbitmq"
 	userRbMq "github.com/ggualbertosouza/go-rabbitMq/internal/infra/rabbitmq/user"
@@ -23,7 +22,7 @@ func New(log logger.Logger, rabbit *rabbitmq.RabbitMq) *UserUseCase {
 	}
 }
 
-func (u *UserUseCase) CreateUser(email, password string) error {
+func (u *UserUseCase) Create(email, password string) error {
 	u.Logger.Info("creating user")
 
 	user := userRbMq.UserCreatedMessage{
@@ -46,8 +45,24 @@ func (u *UserUseCase) CreateUser(email, password string) error {
 	return nil
 }
 
-func (u *UserUseCase) SendCreatedUserEmail(user inputs.UserSendEmail) error {
-	u.Logger.Info("sending email to user", logger.String("email", user.Email))
+func (u *UserUseCase) Update(email string) error {
+	u.Logger.Info("updating user")
 
+	user := userRbMq.UserUpdatingMessage{
+		Email: email,
+	}
+
+	u.Logger.Info("parsing user", logger.String("email", email))
+	body, err := json.Marshal(user)
+	if err != nil {
+		return err
+	}
+
+	err = u.UserRabbitMq.Publish(userRbMq.UsersExchanges, userRbMq.UserUpdatedRk, body)
+	if err != nil {
+		return err
+	}
+
+	u.Logger.Info("user updated successfully")
 	return nil
 }
